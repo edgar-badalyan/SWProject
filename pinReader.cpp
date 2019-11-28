@@ -1,10 +1,11 @@
 #include "pinReader.h"
-
+#include "psqReader.h"
+#include "phrReader.h"
 
 pinReader::pinReader() {
 }
 
-void pinReader::read_index(string file_name, vector<uint32_t> header_offset) {
+void pinReader::read_index(string file_name, psqReader *psqfile, phrReader *phrfile) {
     //reads the info on the database from the .pin binary file
     ifstream file(file_name, std::ios::in | std::ios::binary);
     if(file.is_open()){
@@ -54,12 +55,18 @@ void pinReader::read_index(string file_name, vector<uint32_t> header_offset) {
         std::cout << max_seq <<endl;
 
         //std::vector<uint32_t> header_offset;
-        for (int i = 0;i<10;i++){
+        for (int i = 0;i<num_seq+1;i++){
             uint32_t offset;
             file.read((char*)&offset, sizeof(uint32_t));
             offset = __builtin_bswap32(offset);
-            header_offset.push_back(offset);
-            std::cout << offset <<endl;
+            (phrfile->header_offset).push_back(offset);
+        }
+
+        for (int i = 0;i<num_seq+1;i++){
+            uint32_t seq_size;
+            file.read((char*)&seq_size, sizeof(uint32_t));
+            seq_size = __builtin_bswap32(seq_size);
+            (psqfile->sequence_offset).push_back(seq_size);
         }
     }
 }

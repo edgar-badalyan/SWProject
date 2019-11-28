@@ -6,6 +6,8 @@
 #define SWIPE_PINREADER_H
 
 
+#include "psqReader.h"
+#include "phrReader.h"
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -15,7 +17,7 @@ class pinReader {
 public:
     pinReader();
 
-    void read_index(string file_name, vector<uint32_t> header_offset);
+    void read_index(string file_name, psqReader *psqfile, phrReader *phrfile);
 
 private:
 };

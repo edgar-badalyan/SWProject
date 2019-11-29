@@ -25,7 +25,7 @@ void  pinReader::read_index(string file_name) {
         char title[length+1];
         file.read(title, length);
         title[length] = '\0';
-        std::cout << "Database file:    " <<  title << endl;
+        std::cout << "Database file:     " <<  title << endl;
         std::cout << "Database title:    " <<  title << endl;
 
         uint32_t timestamp_length;

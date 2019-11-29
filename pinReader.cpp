@@ -2,6 +2,8 @@
 
 
 pinReader::pinReader() {
+    sequence_offset = {};
+    header_offset = {};
 }
 
 void  pinReader::read_index(string file_name) {
@@ -12,12 +14,20 @@ void  pinReader::read_index(string file_name) {
         uint32_t version;
         file.read((char *)&version, sizeof(uint32_t));
         version = __builtin_bswap32(version);
+<<<<<<< HEAD
         //std::cout << "Version : " << version<<endl;
+=======
+        std::cout << "Version : " << version<<endl;
+>>>>>>> 5d4bb6846ba04b2eaeb8bcfeb68614386f8bafe5
 
         uint32_t type;
         file.read((char *)&type, sizeof(uint32_t));
         type = __builtin_bswap32(type);
+<<<<<<< HEAD
         //std::cout << "Database type (0-DNA/1-Protein) : " << type <<endl;
+=======
+        std::cout << "Database type (0-DNA/1-Protein) : " << type <<endl;
+>>>>>>> 5d4bb6846ba04b2eaeb8bcfeb68614386f8bafe5
 
         uint32_t length;
         file.read((char*)&length, sizeof(uint32_t));
@@ -27,7 +37,10 @@ void  pinReader::read_index(string file_name) {
         char title[length+1];
         file.read(title, length);
         title[length] = '\0';
+<<<<<<< HEAD
         std::cout << "Database file:    " <<  title << endl;
+=======
+>>>>>>> 5d4bb6846ba04b2eaeb8bcfeb68614386f8bafe5
         std::cout << "Database title:    " <<  title << endl;
 
         uint32_t timestamp_length;
@@ -52,7 +65,11 @@ void  pinReader::read_index(string file_name) {
         uint32_t max_seq;
         file.read((char*)&max_seq, sizeof(uint32_t));
         max_seq = __builtin_bswap32(max_seq);
+<<<<<<< HEAD
         std::cout << "Longest db seq:    " << max_seq << " residues" <<endl;
+=======
+        std::cout << "Longest db seq:    " << max_seq <<endl;
+>>>>>>> 5d4bb6846ba04b2eaeb8bcfeb68614386f8bafe5
 
         //std::vector<uint32_t> header_offset;
         for (int i = 0;i<number_seq+1;i++){

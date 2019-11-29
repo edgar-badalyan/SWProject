@@ -9,7 +9,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a51555c-fd25-4b25-9334-65ca0c4541d8" name="Default Changelist" comment="" />
+    <list default="true" id="c9378f00-7326-47d6-8457-34064a1b915d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/test/test_read.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test_read.h" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1TbwsC6mr0PP5b9lGq4Nv7GsLiJ" />
+  <component name="ProjectId" id="1UJ5mxpbJnMW0CTXW2VrMEd3uB3" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -44,12 +47,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4a51555c-fd25-4b25-9334-65ca0c4541d8" name="Default Changelist" comment="" />
-      <created>1573742306875</created>
+      <changelist id="c9378f00-7326-47d6-8457-34064a1b915d" name="Default Changelist" comment="" />
+      <created>1575062019925</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1573742306875</updated>
-      <workItem from="1573742310199" duration="42000" />
+      <updated>1575062019925</updated>
+      <workItem from="1575062023011" duration="107000" />
     </task>
     <servers />
   </component>

@@ -1,3 +1,0 @@
-/home/rajky/SWProject/CMakeFiles/rebuild_cache.dir
-/home/rajky/SWProject/CMakeFiles/swipe.dir
-/home/rajky/SWProject/CMakeFiles/edit_cache.dir

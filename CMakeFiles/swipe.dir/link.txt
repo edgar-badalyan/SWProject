@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/swipe.dir/main.cpp.o CMakeFiles/swipe.dir/pinReader.cpp.o CMakeFiles/swipe.dir/psqReader.cpp.o CMakeFiles/swipe.dir/phrReader.cpp.o  -o swipe 

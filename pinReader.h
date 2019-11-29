@@ -1,7 +1,3 @@
-//
-// Created by Raymond Khazoum on 27/11/2019.
-//
-
 #ifndef SWIPE_PINREADER_H
 #define SWIPE_PINREADER_H
 
@@ -15,9 +11,12 @@ class pinReader {
 public:
     pinReader();
 
-    void read_index(string file_name, vector<uint32_t> header_offset);
-
+    void read_index(string file_name);
+    vector<uint32_t > get_header_offset(){ return header_offset;}
+    vector<uint32_t> get_sequence_offset(){ return sequence_offset;}
 private:
+    vector<uint32_t> header_offset;
+    vector<uint32_t> sequence_offset;
 };
 
 

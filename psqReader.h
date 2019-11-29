@@ -1,18 +1,10 @@
-//
-// Created by Raymond Khazoum on 28/11/2019.
-//
-
-#ifndef SWIPE_PSQREADER_H
-#define SWIPE_PSQREADER_H
+#ifndef PSQREADER_H
+#define PSQREADER_H
 
 #include <fstream>
 #include <iostream>
 #include <vector>
-#ifndef TEST_READ_H
-#define TEST_READ_H
-
-
-#endif
+#include <map>
 
 
 using namespace std;
@@ -20,12 +12,16 @@ using namespace std;
 class psqReader {
 public:
     psqReader();
-
+    char decode_int(int code);
     string get_sequence_fasta(string file_name);
     int find_sequence(string file_name, string query_sequence);
-    char decode_int(int code);
-    std::vector<uint32_t> sequence_offset;
+    
+    vector<uint32_t> get_sequence_offset(){ return sequence_offset;}
+    void set_sequence_offset(vector<uint32_t> new_sequence_offset){ sequence_offset = new_sequence_offset;}
+private:
+    vector<uint32_t> sequence_offset;
+    string query_file_name;
 };
 
 
-#endif //SWIPE_PSQREADER_H
+#endif //PSQREADER_H

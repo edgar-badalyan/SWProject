@@ -3,15 +3,24 @@
 #include "phrReader.h"
 
 int main(int argc, char* argv[]){
-    psqReader* psqFile = new psqReader();
-    pinReader* pinFile = new pinReader();
-    phrReader* phrfile = new phrReader();
-    //vector<uint32_t> header_offset;
-    string sequence = psqFile->get_sequence_fasta("P00533.fasta"); //query sequence
-    std::cout << "sequence:" << endl << sequence << endl;
-    pinFile->read_index("uniprot_sprot.fasta.pin", psqFile, phrfile);
-    int index = psqFile->find_sequence("uniprot_sprot.fasta.psq", sequence);
-    //std::cout << "index: " <<index <<endl;
-    string header = phrfile->read_header("uniprot_sprot.fasta.phr", index);
-    std::cout << header <<endl;
+    if(argc != 3){
+        cout << "missing file path, in order = database, sequence"<< endl;
+    }
+    else{
+        pinReader* pinFile = new pinReader();
+        phrReader* phrFile = new phrReader();
+        psqReader* psqFile = new psqReader();
+
+        string database_path(argv[1]);
+        pinFile->read_index(database_path + ".pin");
+
+        phrFile->set_header_offset(pinFile->get_header_offset());
+        psqFile->set_sequence_offset(pinFile->get_sequence_offset());
+
+        string sequence = psqFile->get_sequence_fasta(argv[2]); //query sequence
+        //std::cout << "sequence:" << endl << sequence << endl;
+
+        string header= phrFile->read_header(database_path + ".phr",psqFile->find_sequence(database_path + ".psq",sequence));
+        cout << "Query description: "<< header << endl;
+    }
 }

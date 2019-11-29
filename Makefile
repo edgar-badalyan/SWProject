@@ -2,6 +2,7 @@ CCFLAGS = -std=c++11
 
 main: main.o psqReader.o phrReader.o pinReader.o
 	g++ main.o psqReader.o phrReader.o pinReader.o -o main -$(CCFLAGS)
+	rm *.o
 	
 psqReader.o: psqReader.cpp psqReader.h
 	g++ -c psqReader.cpp -$(CCFLAGS)

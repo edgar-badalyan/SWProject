@@ -1,11 +1,9 @@
-
 #include "psqReader.h"
 #include <fstream>
 #include <iostream>
 using namespace std;
 
 psqReader::psqReader() {
-
 }
 
 char psqReader::decode_int(int code){
@@ -35,6 +33,7 @@ char psqReader::decode_int(int code){
 
 string psqReader::get_sequence_fasta(string file_name) {
     //reads a single protein sequence from a .fasta file
+    query_file_name = file_name;
     ifstream file(file_name, std::ios::in);
     if(file.is_open()){
         string line;
@@ -70,7 +69,9 @@ int psqReader::find_sequence(string file_name, string query_sequence) {
             string sequence(char_seq);
             delete[] code;
             if (sequence == query_sequence){
-                std::cout << "sequence: " << sequence << " at: " << i <<endl;
+                cout << "Query file name:   " << query_file_name << endl;
+                cout << "Query length:      " << sequence.size() << " residues" <<endl;
+                cout << "Sequence found with index: " << i <<endl;
                 return i;
             }
             i++;

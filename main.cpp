@@ -11,10 +11,7 @@ int main(int argc, char* argv[]){
         phrReader* phrFile = new phrReader();
         psqReader* psqFile = new psqReader();
 
-        pinFile->read_index(argv[1]);
-
-        phrFile->set_header_offset(pinFile->get_header_offset());
-        psqFile->set_sequence_offset(pinFile->get_sequence_offset());
+        pinFile->read_index(argv[1], phrFile->get_header_offset(), psqFile->get_sequence_offset());
 
         string sequence = psqFile->get_sequence_fasta(argv[2]); //query sequence
         //std::cout << "sequence:" << endl << sequence << endl;

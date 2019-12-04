@@ -11,12 +11,8 @@ class pinReader {
 public:
     pinReader();
 
-    void read_index(string file_name);
-    vector<uint32_t > get_header_offset(){ return header_offset;}
-    vector<uint32_t> get_sequence_offset(){ return sequence_offset;}
+    void read_index(string file_name, vector<uint32_t> *phr_header_offset, vector<uint32_t>* psq_sequence_offset);
 private:
-    vector<uint32_t> header_offset;
-    vector<uint32_t> sequence_offset;
 };
 
 

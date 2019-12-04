@@ -3,3 +3,5 @@ uniprot_sprot.fasta.pin
 uniprot_sprot.fasta.psq
 P00533.fasta
 a.out
+*.o
+swipe

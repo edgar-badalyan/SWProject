@@ -14,8 +14,7 @@ public:
     int convert_header(ifstream &file, string character, int i);
     string read_header(string file_name, int index);
 
-    vector<uint32_t > get_header_offset(){ return header_offset;}
-    void set_header_offset(vector<uint32_t> new_header_offset){ header_offset = new_header_offset;}
+    vector<uint32_t >* get_header_offset(){ return &header_offset;}
 
 private:
     vector<uint32_t> header_offset;

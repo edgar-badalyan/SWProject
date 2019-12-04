@@ -4,7 +4,7 @@
 pinReader::pinReader() {
 }
 
-void  pinReader::read_index(string file_name) {
+void  pinReader::read_index(string file_name, vector<uint32_t> *phr_header_offset, vector<uint32_t>* psq_sequence_offset) {
     //reads the info on the database from the .pin binary file
     ifstream file(file_name, std::ios::in | std::ios::binary);
     if(file.is_open()){
@@ -52,19 +52,22 @@ void  pinReader::read_index(string file_name) {
         max_seq = __builtin_bswap32(max_seq);
         std::cout << "Longest db seq:    " << max_seq << " residues" <<endl;
 
-        //std::vector<uint32_t> header_offset;
+        std::vector<uint32_t> header_offset;
         for (int i = 0;i<number_seq+1;i++){
             uint32_t offset;
             file.read((char*)&offset, sizeof(uint32_t));
             offset = __builtin_bswap32(offset);
             header_offset.push_back(offset);
         }
+        *phr_header_offset = header_offset;
 
+        std::vector<uint32_t> sequence_offset;
         for (int i = 0;i<number_seq+1;i++){
             uint32_t offset;
             file.read((char*)&offset, sizeof(uint32_t));
             offset = __builtin_bswap32(offset);
             sequence_offset.push_back(offset);
         }
+        *psq_sequence_offset = sequence_offset;
     }
 }

@@ -5,7 +5,6 @@ phrReader::phrReader() {
 }
 
 string phrReader::read_header(string file_name, int index){
-
     header_length = header_offset[index+1] - header_offset[index];
     ifstream file(file_name, ios::in | ios::binary);
     if (file.is_open()){

@@ -2,6 +2,7 @@
 
 phrReader::phrReader() {
     header_length = 0;
+    header_offset = {};
 }
 
 string phrReader::read_header(string file_name, int index){
@@ -18,8 +19,8 @@ string phrReader::read_header(string file_name, int index){
             i = convert_header(file, character, i);
 
 		}
-        return header;
-        file.close();
+      return header;
+      file.close();
     }
 }
 int phrReader::convert_header(ifstream &file, string character, int i){

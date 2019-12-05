@@ -12,11 +12,14 @@ int main(int argc, char* argv[]){
         psqReader* psqFile = new psqReader();
 
         pinFile->read_index(argv[1], phrFile->get_header_offset(), psqFile->get_sequence_offset());
-
-        string sequence = psqFile->get_sequence_fasta(argv[2]); //query sequence
-        //std::cout << "sequence:" << endl << sequence << endl;
-
+        
+        string sequence = psqFile->get_sequence_fasta(argv[2]);
         string header= phrFile->read_header(argv[3],psqFile->find_sequence(argv[4],sequence));
+
         cout << "Query description: "<< header << endl;
+
+        delete pinFile;
+        delete phrFile;
+        delete psqFile;
     }
 }

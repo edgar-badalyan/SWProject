@@ -4,6 +4,7 @@
 using namespace std;
 
 psqReader::psqReader() {
+    sequence_offset = {};
 }
 
 char psqReader::decode_int(int code){
@@ -58,13 +59,13 @@ int psqReader::find_sequence(string file_name, string query_sequence) {
     if (file.is_open()){
         int i = 0;
         while (file.good()){
-            int len = this->sequence_offset[i+1] - this->sequence_offset[i];
+            int len = sequence_offset[i+1] - sequence_offset[i];
             char *code = new char[len];
             char char_seq[len];
             file.read(code, len);
             for (int j = 1; j< len;j++){
                 char_seq[j-1] = decode_int(code[j]);
-            }
+             }
             char_seq[len-1] = '\0';
             string sequence(char_seq);
             delete[] code;
@@ -77,5 +78,8 @@ int psqReader::find_sequence(string file_name, string query_sequence) {
         }
         std::cout << "sequence not found" <<endl;
         file.close();
+    }
+    else{
+        return -1;
     }
 }

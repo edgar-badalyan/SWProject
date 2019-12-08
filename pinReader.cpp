@@ -37,10 +37,10 @@ void  pinReader::read_index(string file_name, vector<uint32_t> *phr_header_offse
 
 template <typename type>
 void pinReader::read_uint( ifstream & file, type & element){
-    file.read((char *)&element, sizeof(type));
-    if( typeid(element) == typeid(uint32_t)){
-      element = __builtin_bswap32(element);
-    }
+      file.read((char *)&element, sizeof(type));
+      if( typeid(element) == typeid(uint32_t)){
+        element = __builtin_bswap32(element);
+      }
 }
 
 void pinReader::read_char(char* element, ifstream & file, int length){

@@ -2,10 +2,10 @@
 
 phrReader::phrReader() {
     header_length = 0;
+    header_offset = {};
 }
 
 string phrReader::read_header(string file_name, int index){
-
     header_length = header_offset[index+1] - header_offset[index];
     ifstream file(file_name, ios::in | ios::binary);
     if (file.is_open()){
@@ -17,12 +17,12 @@ string phrReader::read_header(string file_name, int index){
 			sstream << hex << int(byte);
 			string character = sstream.str();
             i = convert_header(file, character, i);
-
 		}
         return header;
         file.close();
     }
 }
+
 int phrReader::convert_header(ifstream &file, string character, int i){
     if (character == "1a"){
         char size_c;

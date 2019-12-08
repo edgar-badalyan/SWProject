@@ -12,15 +12,16 @@ using namespace std;
 class psqReader {
 public:
     psqReader();
-    char decode_int(int code);
-    string get_sequence_fasta(string file_name);
-    int find_sequence(string file_name, string query_sequence);
+    vector<int> get_sequence_fasta(string file_name);
+    int find_sequence(string file_name, vector<int> query_sequence);
     
-    vector<uint32_t> get_sequence_offset(){ return sequence_offset;}
-    void set_sequence_offset(vector<uint32_t> new_sequence_offset){ sequence_offset = new_sequence_offset;}
+    vector<uint32_t>* get_sequence_offset(){ return &sequence_offset;}
+
 private:
     vector<uint32_t> sequence_offset;
     string query_file_name;
+    char *psq_file;
+    uint64_t file_size;
 };
 
 

@@ -1,6 +1,6 @@
 #include "pinReader.h"
-
 #include <stdlib.h>
+
 pinReader::pinReader() {
 }
 

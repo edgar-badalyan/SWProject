@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 
+using namespace std;
 using std::string;
 using std::ifstream;
 
@@ -78,13 +79,47 @@ void read_blosum(string file_name){
     }
 }
 
+void algo(string seq1, string seq2, double openPenalty = 11, double extPenalty = 1) {
+    int gapNumber = 0.0;
+    double gapPenalty = 0.0;
+
+    // ne faites pas attention à ces lignes
+    seq1 = "1" + seq1;
+    seq2 = "2" + seq2;
+    cout <<  "    * ";
+    for(int x = 1 ; x < seq2.length(); x++){
+        cout << " " << seq2[x]  << " ";
+    }
+    cout <<endl;
+    cout <<endl;
+    //
+
+    // création de la matrice
+    vector<vector <double>> matrix(1+seq1.length(), std::vector<double>(1+seq2.length(), 0.0));
+    for(int y = 1; y < seq1.length(); y++){
+        cout << " " << seq1[y]  << "    ";
+        for(int x = 1; x < seq2.length(); x++){
+            if ( (matrix[y-1][x] - gapPenalty > matrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])]) || matrix[y][x-1] - gapPenalty > matrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])] ){
+                gapNumber++;
+            }
+            else if (seq1[y] == seq2[x]){
+                gapNumber = 0;
+            }
+            gapPenalty = openPenalty + gapNumber*extPenalty;
+            double maxim = max(matrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])] ,0.0);
+            double maxim2 = max(matrix[y][x-1] - gapPenalty, matrix[y-1][x] - gapPenalty);
+            matrix[y][x] = max(maxim,maxim2);
+            cout << " " << matrix[y][x] << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main(){
-    read_blosum("BLOSUM62");
-    std::cout << residueScores[get_index('A', 'A')]<<std::endl;
-    std::cout << residueScores[get_index('T', 'M')]<<std::endl;
-    std::cout << residueScores[get_index('X', 'Y')]<<std::endl;
-    std::cout << residueScores[get_index('G', 'H')]<<std::endl;
-    std::cout << residueScores[get_index('M', 'N')]<<std::endl;
+    read_blosum("BLOSUM_TEST");
+    algo("ATATTGGT", "ATTGGTTG", 2);
+    cout << endl;
+    algo("ATATTGGT", "ATTGGTTG", 5);
 
 
 }

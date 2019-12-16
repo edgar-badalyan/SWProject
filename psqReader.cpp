@@ -64,7 +64,6 @@ int psqReader::find_sequence(string file_name, string query_sequence) {
             char char_seq[len];
             file.read(code, len);
             for (int j = 1; j< len;j++){
-                cout << code[j] <<endl;
                 char_seq[j-1] = decode_int(code[j]);
              }
             char_seq[len-1] = '\0';

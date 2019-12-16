@@ -1,10 +1,10 @@
 CCFLAGS = -std=c++11
 
-main: main.o psqReader.o phrReader.o pinReader.o
-	g++ main.o psqReader.o phrReader.o pinReader.o -o main -$(CCFLAGS)
+main: main.o smithWaterman.o psqReader.o phrReader.o pinReader.o 
+	g++ main.o smithWaterman.o psqReader.o phrReader.o pinReader.o -o main -$(CCFLAGS)
 	rm *.o
 	
-psqReader.o: psqReader.cpp psqReader.h
+psqReader.o: psqReader.cpp psqReader.h smithWaterman.h
 	g++ -c psqReader.cpp -$(CCFLAGS)
 	
 phrReader.o: phrReader.cpp phrReader.h
@@ -15,5 +15,8 @@ pinReader.o: pinReader.cpp pinReader.h psqReader.h phrReader.h
 
 main.o: main.cpp pinReader.h psqReader.h phrReader.h
 	g++ -c main.cpp -$(CCFLAGS)
+	
+smithWaterman.o: smithWaterman.cpp smithWaterman.h
+	g++ -c smithWaterman.cpp -$(CCFLAGS)
 
 

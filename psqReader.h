@@ -14,7 +14,7 @@ public:
     psqReader();
     vector<int> get_sequence_fasta(string file_name);
     int find_sequence(string file_name, vector<int> query_sequence);
-    
+    void set_traceback(){ traceback = 1;}
     vector<uint32_t>* get_sequence_offset(){ return &sequence_offset;}
 
 private:
@@ -22,6 +22,7 @@ private:
     string query_file_name;
     char *psq_file;
     uint64_t file_size;
+    int traceback = 0;
 };
 
 

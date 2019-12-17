@@ -107,22 +107,21 @@ int smithWaterman::algo(vector<int> seq1, vector<int> seq2) {
         cout << floor((max*0.267 + 3.34)/log(2));
         return  floor((max*0.267 + 3.34)/log(2));
     }
-    */
-    else{
-        for(int y = 1; y < seq1.size(); y++){
-            for(int x = 1; x < seq2.size(); x++){
+*/
+    for(int y = 1; y < seq1.size(); y++){
+        for(int x = 1; x < seq2.size(); x++){
 
-                double maxF = max(HMatrix[y][x-1] - QPenalty, FMatrix[y][x-1] - RPenalty);
-                FMatrix[y][x] = max(maxF,0);
-                double maxE = max(HMatrix[y-1][x] - QPenalty, EMatrix[y-1][x] - RPenalty);
-                EMatrix[y][x] = max(maxE,0);
-                double maxH_1 = max(HMatrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])] ,0.0); double maxH_2 = max(maxF, maxE);
-                HMatrix[y][x] = max(maxH_1, maxH_2);
-                if(HMatrix[y][x] > max){
-                    max = HMatrix[y][x];
-                }
+            double maxF = max(HMatrix[y][x-1] - QPenalty, FMatrix[y][x-1] - RPenalty);
+            FMatrix[y][x] = max(maxF,0);
+            double maxE = max(HMatrix[y-1][x] - QPenalty, EMatrix[y-1][x] - RPenalty);
+            EMatrix[y][x] = max(maxE,0);
+            double maxH_1 = max(HMatrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])] ,0.0); double maxH_2 = max(maxF, maxE);
+            HMatrix[y][x] = max(maxH_1, maxH_2);
+            if(HMatrix[y][x] > max){
+                max = HMatrix[y][x];
             }
         }
-        return  floor((max*0.267 + 3.34)/log(2));
     }
+    return  floor((max*0.267 + 3.34)/log(2));
+
 }

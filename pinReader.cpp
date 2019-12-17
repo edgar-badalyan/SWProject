@@ -32,6 +32,9 @@ void  pinReader::read_file(string file_name, vector<uint32_t> *phr_header_offset
             (*psq_sequence_offset).push_back(offset);
         }
     }
+    else{
+        cout << " Error : pin file " << endl;
+    }
 }
 
 template <typename type>

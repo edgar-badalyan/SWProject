@@ -1,9 +1,6 @@
-#ifndef SMITH_WATERMAN_H
-#define SMITH_WATERMAN_H
-
 #include <string>
 #include <vector>
-using namespace std;
+
 class smithWaterman {
 
 public:
@@ -25,4 +22,3 @@ private:
     int residues_to_pass(int line_number);
     int get_index(int res1, int res2);
 };
-#endif

@@ -22,6 +22,11 @@ string phrReader::read_header(string file_name, int index){
         return header.substr(0, 120);
         file.close();
     }
+    else{
+        cout << " Error : phr file" << endl;
+        exit(1);
+    }
+    exit(1);
 }
 
 int phrReader::convert_header(ifstream &file, string character, int i){

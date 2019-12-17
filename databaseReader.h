@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
+#include <map>
 #include "pinReader.h"
 #include "phrReader.h"
 #include "psqReader.h"

@@ -11,7 +11,7 @@ databaseReader::databaseReader(string database_path, string fasta_seq_path) {
     // -------------- psqFile init ----------------
     vector<vector<int>> vec_score = psqFile->find_sequence_score(database_path + ".psq", fasta_seq, psq_file_size);
 
-    //#!  TO DO : Trier vec_score
+    
     for (int i = 0; i < vec_score.size(); i++){
         vector<int> temp;
         int j=i;

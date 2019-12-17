@@ -1,14 +1,10 @@
+#include "smithWaterman.h"
 #include <iostream>
-#include <vector>
 #include <map>
 #include <fstream>
-#include <string>
 #include <sstream>
 #include <math.h>
-#include "smithWaterman.h"
 using namespace std;
-using std::string;
-using std::ifstream;
 
 #define min(a, b) (a < b? a : b)
 #define max(a, b) (a > b? a : b)
@@ -17,6 +13,8 @@ smithWaterman::smithWaterman(){
     openPenalty = 11;
     extPenalty = 1;
     blosum_file = "BLOSUM62";
+    cout << "Score matrix:      " << blosum_file << endl;
+    cout << "Gap penalty:       " << openPenalty << "+" << extPenalty << "k" << endl; 
 }
 
 int smithWaterman::residue_index(int residue){
@@ -87,6 +85,9 @@ void smithWaterman::read_blosum(){
         }
         file.close();
     }
+    else{
+        cout << " Error : blosum file" << endl;
+    }
 }
 
 int smithWaterman::algo(vector<int> seq1, vector<int> seq2) {
@@ -97,31 +98,30 @@ int smithWaterman::algo(vector<int> seq1, vector<int> seq2) {
     vector<vector <double>> HMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0)),
                             EMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0)),
                             FMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0));
-    /*
+
     if( seq1 == seq2){
-        cout << "max trouvé" << endl;
         for(int i = 1; i < seq1.size() ; i++){
             HMatrix[i][i] += HMatrix[i-1][i-1] + residueScores[get_index(seq1[i], seq2[i])];
         }
         max = HMatrix[seq1.size()-1][seq1.size()-1];
-        cout << floor((max*0.267 + 3.34)/log(2));
         return  floor((max*0.267 + 3.34)/log(2));
     }
-*/
-    for(int y = 1; y < seq1.size(); y++){
-        for(int x = 1; x < seq2.size(); x++){
+    else{
+        for(int y = 1; y < seq1.size(); y++){
+            for(int x = 1; x < seq2.size(); x++){
 
-            double maxF = max(HMatrix[y][x-1] - QPenalty, FMatrix[y][x-1] - RPenalty);
-            FMatrix[y][x] = max(maxF,0);
-            double maxE = max(HMatrix[y-1][x] - QPenalty, EMatrix[y-1][x] - RPenalty);
-            EMatrix[y][x] = max(maxE,0);
-            double maxH_1 = max(HMatrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])] ,0.0); double maxH_2 = max(maxF, maxE);
-            HMatrix[y][x] = max(maxH_1, maxH_2);
-            if(HMatrix[y][x] > max){
-                max = HMatrix[y][x];
+                double maxF = max(HMatrix[y][x-1] - QPenalty, FMatrix[y][x-1] - RPenalty);
+                FMatrix[y][x] = max(maxF,0);
+                double maxE = max(HMatrix[y-1][x] - QPenalty, EMatrix[y-1][x] - RPenalty);
+                EMatrix[y][x] = max(maxE,0);
+                double maxH_1 = max(HMatrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])] ,0.0),
+                       maxH_2 = max(maxF, maxE);
+                HMatrix[y][x] = max(maxH_1, maxH_2);
+
+                if(HMatrix[y][x] > max){ max = HMatrix[y][x];}
             }
         }
+        return  floor((max*0.267 + 3.34)/log(2));
     }
-    return  floor((max*0.267 + 3.34)/log(2));
 
 }

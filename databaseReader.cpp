@@ -9,7 +9,12 @@ databaseReader::databaseReader(string database_path, string fasta_seq_path) {
     int psq_file_size = pinFile->get_number_seq() + pinFile->get_res_count();
 
     // -------------- psqFile init ----------------
-    psqFile->find_sequence_score(database_path + ".psq", fasta_seq, psq_file_size);
+    vector<vector<int>> vec_score = psqFile->find_sequence_score(database_path + ".psq", fasta_seq, psq_file_size);
+
+    //#!  TO DO : Trier vec_score
+    for (int i = 0 ; i < vec_score.size() ; i++){
+        cout <<  phrFile->read_header(database_path+".phr",vec_score[i][1]) << "      index :" <<  vec_score[i][1]<< "      score : " <<vec_score[i][0] << endl;
+    }
 
 }
 

@@ -6,6 +6,7 @@ phrReader::phrReader() {
 }
 
 string phrReader::read_header(string file_name, int index){
+    header= "";
     header_length = header_offset[index+1] - header_offset[index];
     ifstream file(file_name, ios::in | ios::binary);
     if (file.is_open()){
@@ -18,7 +19,7 @@ string phrReader::read_header(string file_name, int index){
 			string character = sstream.str();
             i = convert_header(file, character, i);
 		}
-        return header;
+        return header.substr(0, 70);
         file.close();
     }
 }

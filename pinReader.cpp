@@ -1,10 +1,9 @@
 #include "pinReader.h"
-#include <typeinfo>
 
 pinReader::pinReader() {
 }
 
-void  pinReader::read_index(string file_name, vector<uint32_t> *phr_header_offset, vector<uint32_t> *psq_sequence_offset) {
+void  pinReader::read_file(string file_name, vector<uint32_t> *phr_header_offset, vector<uint32_t> *psq_sequence_offset) {
     //reads the info on the database from the .pin binary file
     ifstream file(file_name, std::ios::in | std::ios::binary);
     if(file.is_open()){
@@ -14,8 +13,8 @@ void  pinReader::read_index(string file_name, vector<uint32_t> *phr_header_offse
         char title[length + 1]; read_char(title, file, length);
         uint32_t timestamp_length; read_uint(file, timestamp_length);
         char timestamp[timestamp_length + 1]; read_char(timestamp, file, timestamp_length);
-        uint32_t number_seq; read_uint(file, number_seq);
-        uint64_t res_count; read_uint(file, res_count);
+        read_uint(file, number_seq);
+        read_uint(file, res_count);
         uint32_t max_seq; read_uint(file, max_seq);
 
         std::cout << "Database file:     " <<  title << endl;

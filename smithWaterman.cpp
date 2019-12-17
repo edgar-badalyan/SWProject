@@ -89,36 +89,16 @@ void smithWaterman::read_blosum(){
     }
 }
 
-void smithWaterman::algo(vector<int> seq1, vector<int> seq2) {
-    double QPenalty = openPenalty + extPenalty;
-    double RPenalty = extPenalty;
+int smithWaterman::algo(vector<int> seq1, vector<int> seq2) {
+    double QPenalty = openPenalty + extPenalty,
+           RPenalty = extPenalty;
     double max = 0.0;
 
-    /*for (int i = 0; i< seq1.size();i++){
-        std::cout << seq1[i] << " ";
-    }
-    std::cout << std::endl;
+    vector<vector <double>> HMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0)),
+                            EMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0)),
+                            FMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0));
 
-    for (int i = 0; i< seq2.size();i++){
-        std::cout << seq2[i] << " ";
-    }
-    std::cout << std::endl;*/
-
-    // ne faites pas attention à ces lignes
-    //seq1 = "1" + seq1;
-    //seq2 = "2" + seq2;
-    /*
-    for(int x = 1 ; x < seq2.length(); x++){
-       cout << " " << seq2[x]  << " ";
-    }
-    cout <<endl;
-    cout <<endl;
-    */
-
-    // création de la matrice
-    vector<vector <double>> HMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0)), EMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0)), FMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0));
     for(int y = 1; y < seq1.size(); y++){
-        //cout << " " << seq1[y]  << "    ";
         for(int x = 1; x < seq2.size(); x++){
 
             double maxF = max(HMatrix[y][x-1] - QPenalty, FMatrix[y][x-1] - RPenalty);
@@ -132,7 +112,5 @@ void smithWaterman::algo(vector<int> seq1, vector<int> seq2) {
             }
         }
     }
-    if ( floor((max*0.267 + 3.34)/log(2)) > 2518.0/4){
-        cout  << max << "   " << floor((max*0.267 + 3.34)/log(2))<< endl;
-    }
+    return  floor((max*0.267 + 3.34)/log(2));
 }

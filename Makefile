@@ -1,4 +1,4 @@
-CCFLAGS = -std=c++11
+CCFLAGS = -std=c++11 -O3 -Ofast
 
 main: main.o smithWaterman.o psqReader.o phrReader.o pinReader.o 
 	g++ main.o smithWaterman.o psqReader.o phrReader.o pinReader.o -o main -$(CCFLAGS)

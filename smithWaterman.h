@@ -2,13 +2,14 @@
 #define SMITH_WATERMAN_H
 
 #include <string>
+#include <vector>
 
 class smithWaterman {
 
 public:
     smithWaterman();
     void read_blosum();
-    void algo(int seq1[], int size1, int seq2[], int size2);
+    void algo(std::vector<int> seq1, std::vector<int> seq2);
     void set_blosum(std::string file_name) { blosum_file = file_name; }
     void set_openPenalty(int penalty) { openPenalty = penalty; }
     void set_extPenalty(int penalty) { extPenalty = penalty; }

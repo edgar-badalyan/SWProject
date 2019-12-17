@@ -46,6 +46,7 @@ std::vector<int> psqReader::get_sequence_fasta(string file_name) {
     //reads a single protein sequence from a .fasta file
     query_file_name = file_name;
     std::vector<int> seq;
+    seq.push_back(0);
     ifstream file(file_name, std::ios::in);
     if(file.is_open()){string line;
         int i = 0;
@@ -64,50 +65,22 @@ std::vector<int> psqReader::get_sequence_fasta(string file_name) {
 }
 
 int psqReader::find_sequence(string file_name, vector<int> query_sequence) {
-    //scans the .psq file and finds the sequence that is identical to
-    //the query sequence and return its index
-
-    int query_size = query_sequence.size();
-    int query[query_size + 1];
-    query[0] = 0;
-    for (int i = 0;i<query_size;i++){
-        query[i+1] = query_sequence[i];
-    }
-    smithWaterman *sw = new smithWaterman();
     ifstream file(file_name, std::ios::in | std::ios::binary);
     if (file.is_open()){
-        //load file in memory
-        file.seekg(0, file.end);
-        file_size = file.tellg();
-        file.seekg(0, file.beg);
-        psq_file = new char[file_size];
-        file.read(psq_file, file_size);
+        smithWaterman *sw = new smithWaterman(); sw->read_blosum();
+        std::vector<char> vec(std::istreambuf_iterator<char>(file),(std::istreambuf_iterator<char>()));
         file.close();
 
-        sw->read_blosum();
         int index = 0;
-        int i=1;
-        while(i < file_size){
-            int offset = this->sequence_offset[index];
-            int len = this->sequence_offset[index+1] - offset;
-            int sequence[len];
-            for (int j=1;j<len;j++){
-                sequence[j] = psq_file[j + offset -1];
-                i++;
-            }
-            sequence[0] = 0;
-            /*if (sequence == query_sequence){
-                cout << "Query file name:   " << query_file_name << endl;
-                cout << "Query length:      " << sequence.size() << " residues" <<endl;
-                return index;
-            }*/
-            std::cout << index <<": ";
-            sw->algo(sequence, len, query, query_size);
+        for(int i = 0 ; i < 5953912; i++){
+            int len = sequence_offset[index+1] - sequence_offset[index];
+            vector<int> sequence(vec.begin() + i, vec.begin() + (len + sequence_offset[index] - 1)  );
+            sequence.insert(sequence.begin(),0);
+
+            //cout << index << " ; ";
+            sw->algo(sequence, query_sequence);
             index++;
+            i+=len-1;
         }
-        std::cout << "sequence not found" <<endl;
-        file.close();
-    }else{
-        return -1;
     }
 }

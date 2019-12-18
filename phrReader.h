@@ -1,5 +1,4 @@
-#ifndef PHRREADER_H
-#define PHRREADER_H
+
 #include <iostream>
 #include <fstream>
 #include <string.h>
@@ -21,6 +20,3 @@ private:
     int header_length;
     string header;
 };
-
-
-#endif //PHRREADER_H

@@ -1,0 +1,6 @@
+*.fasta.phr
+*.fasta.pin
+*.fasta.psq
+*.fasta
+*.o
+main

@@ -7,7 +7,7 @@ public:
     smithWaterman();
     void read_blosum();
 
-    int algo(std::vector<int> seq1, std::vector<int> seq2);
+    int algo(std::vector<int> & seq1, std::vector<int> & seq2);
     void set_blosum(std::string file_name) { blosum_file = file_name; }
     void set_openPenalty(int penalty) { openPenalty = penalty; }
     void set_extPenalty(int penalty) { extPenalty = penalty; }

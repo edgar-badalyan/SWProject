@@ -1,6 +1,7 @@
 #include "pinReader.h"
 
 pinReader::pinReader() {
+    offset = 0;
 }
 
 void  pinReader::read_file(string file_name, vector<uint32_t> *phr_header_offset, vector<uint32_t> *psq_sequence_offset) {
@@ -24,11 +25,11 @@ void  pinReader::read_file(string file_name, vector<uint32_t> *phr_header_offset
         std::cout << "Longest db seq:    " << max_seq << " residues" <<endl;
 
         for (int i = 0;i<number_seq+1;i++){
-            uint32_t offset; read_uint(file, offset);
+            read_uint(file, offset);
             (*phr_header_offset).push_back(offset);
         }
         for (int i = 0;i<number_seq+1;i++){
-            uint32_t offset; read_uint(file, offset);
+            read_uint(file, offset);
             (*psq_sequence_offset).push_back(offset);
         }
     }

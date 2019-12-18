@@ -19,6 +19,7 @@ public:
     const uint32_t get_number_seq() { return number_seq;}
     const uint64_t get_res_count() { return res_count;}
 private:
+    uint32_t offset;
     uint32_t number_seq;
     uint64_t res_count;
 };

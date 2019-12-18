@@ -14,7 +14,7 @@ smithWaterman::smithWaterman(){
     extPenalty = 1;
     blosum_file = "BLOSUM62";
     cout << "Score matrix:      " << blosum_file << endl;
-    cout << "Gap penalty:       " << openPenalty << "+" << extPenalty << "k" << endl; 
+    cout << "Gap penalty:       " << openPenalty << "+" << extPenalty << "k" << endl;
 }
 
 int smithWaterman::residue_index(int residue){
@@ -90,10 +90,10 @@ void smithWaterman::read_blosum(){
     }
 }
 
-int smithWaterman::algo(vector<int> seq1, vector<int> seq2) {
+int smithWaterman::algo(vector<int> & seq1, vector<int> & seq2) {
     double QPenalty = openPenalty + extPenalty,
            RPenalty = extPenalty;
-    double max = 0.0;
+    double max = 0.0, maxF = 0.0 , maxE = 0.0, maxH_1 = 0.0, maxH_2 = 0.0;
 
     vector<vector <double>> HMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0)),
                             EMatrix(1+seq1.size(), std::vector<double>(1+seq2.size(), 0.0)),
@@ -110,12 +110,11 @@ int smithWaterman::algo(vector<int> seq1, vector<int> seq2) {
         for(int y = 1; y < seq1.size(); y++){
             for(int x = 1; x < seq2.size(); x++){
 
-                double maxF = max(HMatrix[y][x-1] - QPenalty, FMatrix[y][x-1] - RPenalty);
-                FMatrix[y][x] = max(maxF,0);
-                double maxE = max(HMatrix[y-1][x] - QPenalty, EMatrix[y-1][x] - RPenalty);
-                EMatrix[y][x] = max(maxE,0);
-                double maxH_1 = max(HMatrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])] ,0.0),
-                       maxH_2 = max(maxF, maxE);
+                maxF = max(HMatrix[y][x-1] - QPenalty, FMatrix[y][x-1] - RPenalty);   FMatrix[y][x] = max(maxF,0);
+                maxE = max(HMatrix[y-1][x] - QPenalty, EMatrix[y-1][x] - RPenalty);   EMatrix[y][x] = max(maxE,0);
+
+                maxH_1 = max(HMatrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])] ,0.0);
+                maxH_2 = max(maxF, maxE);
                 HMatrix[y][x] = max(maxH_1, maxH_2);
 
                 if(HMatrix[y][x] > max){ max = HMatrix[y][x];}

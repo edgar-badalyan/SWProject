@@ -8,6 +8,7 @@ void  pinReader::read_file(string file_name, vector<uint32_t> *phr_header_offset
     //reads the info on the database from the .pin binary file
     ifstream file(file_name, std::ios::in | std::ios::binary);
     if(file.is_open()){
+        // read all the info
         uint32_t version; read_uint(file, version);
         uint32_t type; read_uint(file, type);
         uint32_t length; read_uint(file, length);
@@ -24,10 +25,13 @@ void  pinReader::read_file(string file_name, vector<uint32_t> *phr_header_offset
         std::cout << "Database size:     " << res_count << " residues in "<< number_seq <<" sequences"<<endl;
         std::cout << "Longest db seq:    " << max_seq << " residues" <<endl;
 
+        // offsets in header file
         for (int i = 0;i<number_seq+1;i++){
             read_uint(file, offset);
             (*phr_header_offset).push_back(offset);
         }
+
+        //offsets in sequence file
         for (int i = 0;i<number_seq+1;i++){
             read_uint(file, offset);
             (*psq_sequence_offset).push_back(offset);
@@ -42,6 +46,7 @@ template <typename type>
 void pinReader::read_uint( ifstream & file, type & element){
       file.read((char *)&element, sizeof(type));
       if( typeid(element) == typeid(uint32_t)){
+        // change endianness
         element = __builtin_bswap32(element);
       }
 }

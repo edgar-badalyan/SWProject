@@ -1,3 +1,7 @@
+// header for phrReader.cpp
+
+#ifndef PHR_READER_H
+#define PHR_READER_H
 
 #include <iostream>
 #include <fstream>
@@ -20,3 +24,5 @@ private:
     int header_length;
     string header;
 };
+
+#endif

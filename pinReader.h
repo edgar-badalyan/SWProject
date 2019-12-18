@@ -1,3 +1,8 @@
+// header for pinReader.cpp
+
+#ifndef PIN_READER_H
+#define PIN_READER_H
+
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -23,3 +28,5 @@ private:
     uint32_t number_seq;
     uint64_t res_count;
 };
+
+#endif

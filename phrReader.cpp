@@ -19,8 +19,9 @@ string phrReader::read_header(string file_name, int index){
 			string character = sstream.str();
             i = convert_header(file, character, i);
 		}
-        return header.substr(0, 120);
         file.close();
+		// we don't want the output to be too long
+        return header.substr(0, 120);
     }
     else{
         cout << " Error : phr file" << endl;
@@ -39,6 +40,7 @@ int phrReader::convert_header(ifstream &file, string character, int i){
         sstream2 << hex << (int)size_c;
         sstream2 >> size;
         int real_size;
+        // if bigger than 128, it's just the size on which the real size is encoded
         if (size >= 128){
             string encoding_size (sstream2.str());
             encoding_size = encoding_size.substr(7);

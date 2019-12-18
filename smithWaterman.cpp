@@ -9,15 +9,17 @@ using namespace std;
 #define min(a, b) (a < b? a : b)
 #define max(a, b) (a > b? a : b)
 
-smithWaterman::smithWaterman(){
-    openPenalty = 11;
-    extPenalty = 1;
-    blosum_file = "BLOSUM62";
+smithWaterman::smithWaterman(int openPenalty, int extPenalty, string blosum_file){
+    this->openPenalty = openPenalty;
+    this->extPenalty = extPenalty;
+    this->blosum_file = "BLOSUM62";
     cout << "Score matrix:      " << blosum_file << endl;
-    cout << "Gap penalty:       " << openPenalty << "+" << extPenalty << "k" << endl;
+    cout << "Gap penalty:       " << openPenalty << "+" << extPenalty << "k" << endl << endl;
 }
 
 int smithWaterman::residue_index(int residue){
+    // index for the residues in blosum file
+    // faster than a map
     int index;
     switch (residue){
         case 1: index = 0;break;
@@ -52,6 +54,7 @@ int smithWaterman::residues_to_pass(int line_number){
     if (line_number <= 0){
         return 0;
     }else{
+        // blosum matrix is symmetric, we can ignore the first n numbers on the nth line
         return (24.5 * line_number - (line_number*line_number)/2);
     }
 }
@@ -59,6 +62,7 @@ int smithWaterman::residues_to_pass(int line_number){
 int smithWaterman::get_index(int res1, int res2){
     int ind1 = residue_index(res1);
     int ind2 = residue_index(res2);
+    // this is the index in the residueScores array for the score of the pair (res1, res2)
     return residues_to_pass(min(ind1, ind2)) + max(ind1, ind2) - min(ind1, ind2);
 }
 
@@ -75,6 +79,7 @@ void smithWaterman::read_blosum(){
                 std::stringstream sstream(line);
                 int score;
                 while(sstream >> score){
+                    // read only the superior triangle of the matrix, the rest is redundant
                     if(read >= line_number){
                         residueScores[index++] = score;
                     }

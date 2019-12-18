@@ -14,7 +14,7 @@ smithWaterman::smithWaterman(int openPenalty, int extPenalty, string blosum_file
     this->extPenalty = extPenalty;
     this->blosum_file = "BLOSUM62";
     cout << "Score matrix:      " << blosum_file << endl;
-    cout << "Gap penalty:       " << openPenalty << "+" << extPenalty << "k" << endl << endl;
+    cout << "Gap penalty:       " << openPenalty << "+" << extPenalty << "k" << endl;
 }
 
 int smithWaterman::residue_index(int residue){

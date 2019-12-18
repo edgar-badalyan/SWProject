@@ -21,7 +21,7 @@ string phrReader::read_header(string file_name, int index){
 		}
         file.close();
 		// we don't want the output to be too long
-        return header.substr(0, 120);
+        return header.substr(0, 110);
     }
     else{
         cout << " Error : phr file" << endl;

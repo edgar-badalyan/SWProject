@@ -26,6 +26,7 @@ databaseReader::databaseReader(string database_path, string fasta_seq_path, int 
         }
     }
     // print sequences
+    cout << "Query description: " << (phrFile->read_header(database_path+".phr",vec_score[i][1])).subtr(14+sizeof(vec_score[i][1]),120 ) << endl;
     for (int i = 0 ; i < vec_score.size() ; i++){
         cout <<  phrFile->read_header(database_path+".phr",vec_score[i][1]) << "      score : " <<vec_score[i][0] << endl;
     }

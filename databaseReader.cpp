@@ -8,6 +8,7 @@ databaseReader::databaseReader(string database_path, string fasta_seq_path, int 
     // -------------- pinFile init ----------------
     pinFile->read_file(database_path +".pin", phrFile->get_header_offset(), psqFile->get_sequence_offset());
     int psq_file_size = pinFile->get_number_seq() + pinFile->get_res_count();
+    cout << "Query file name:   " << fasta_seq_path << endl;
 
     // -------------- psqFile init ----------------
     vector<vector<int>> vec_score = psqFile->find_sequence_score(database_path + ".psq", fasta_seq, psq_file_size, openPenalty, extPenalty, factor, blosum_file);

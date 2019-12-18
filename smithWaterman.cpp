@@ -90,7 +90,7 @@ void smithWaterman::read_blosum(){
     }
 }
 
-int smithWaterman::algo(vector<int> & seq1, vector<int> & seq2) {
+int smithWaterman::algo(const vector<int> & seq1, const vector<int> & seq2) {
     double QPenalty = openPenalty + extPenalty,
            RPenalty = extPenalty;
     double max = 0.0, maxF = 0.0 , maxE = 0.0, maxH_1 = 0.0, maxH_2 = 0.0;
@@ -115,7 +115,7 @@ int smithWaterman::algo(vector<int> & seq1, vector<int> & seq2) {
 
                 maxH_1 = max(HMatrix[y-1][x-1] + residueScores[get_index(seq1[y], seq2[x])] ,0.0);
                 maxH_2 = max(maxF, maxE);
-                HMatrix[y][x] = max(maxH_1, maxH_2);
+                HMatrix[y][x] =  max(maxH_1, maxH_2);
 
                 if(HMatrix[y][x] > max){ max = HMatrix[y][x];}
             }

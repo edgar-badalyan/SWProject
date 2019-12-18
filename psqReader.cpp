@@ -22,7 +22,7 @@ vector<vector<int>> psqReader::find_sequence_score(string file_name, vector<int>
         vector<int> other_sequence;
         int len = 0;
         int score = 0;
-        for(int i = 0 ; i < file_size; i++){
+        for(int i = 0 ; i < file_size; i+=len){
             len = sequence_offset[index+1] - sequence_offset[index];
             other_sequence.clear();
             other_sequence.insert(other_sequence.begin(), all_file.begin() + i, all_file.begin() + (len + sequence_offset[index]));
@@ -30,7 +30,7 @@ vector<vector<int>> psqReader::find_sequence_score(string file_name, vector<int>
             if ( maxScore/factor < score ){
                 seq_score.push_back({score, index});
             }
-            i += len - 1;
+            //i += len - 1; je l'ai mis dans le 'for' -> plus rapide ?
             index++;
 
         }
